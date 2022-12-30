@@ -51,26 +51,28 @@ const colaDeAtencion = (N, T, A = []) => {
         if (A[i] == 0) {
             oficinasDisponibles[i] = T;
             oficinasMinimas++;
-        } else if ((A[i] + A[i + 1]) < T && (A[i] && A[i + 1] != 0) && (A[i] + A[i + 1] == T) && estaOficinaDisponible(oficinasDisponibles, A[i] + A[i + 1])) {
-            oficinasDisponibles = buscarOficinaDisponible(oficinasDisponibles, (A[i] + A[i + 1]));
-            console.log("A[i]", A[i])
-            console.log("T - (A[i] + A[i + 1])", T - (A[i] + A[i + 1]))
-            oficinasDisponibles.push(T - (A[i] + A[i + 1]));
-            console.log("oficinasDisponiblesssss: ", oficinasDisponibles);
-            i++;
-            oficinasMinimas++;
-        } else if (A[i] <= T) {
-            console.log("entreee", A[i])
-            let arregloActualizado = estaOficinaDisponible(oficinasDisponibles, A[i]) ? buscarOficinaDisponible(oficinasDisponibles, A[i]) : false;
+        } else
 
-            if (!arregloActualizado) {
-                oficinasDisponibles[i] = (T - A[i]);
+            if ((A[i] + A[i + 1]) < T && (A[i] && A[i + 1] != 0) && estaOficinaDisponible(oficinasDisponibles, A[i] + A[i + 1])) {
+                oficinasDisponibles = buscarOficinaDisponible(oficinasDisponibles, (A[i] + A[i + 1]));
+                console.log("A[i]", A[i])
+                console.log("T - (A[i] + A[i + 1])", T - (A[i] + A[i + 1]))
+                oficinasDisponibles.push(T - (A[i] + A[i + 1]));
+                console.log("oficinasDisponiblesssss: ", oficinasDisponibles);
+                i++;
                 oficinasMinimas++;
+            } else if (A[i] <= T) {
+                console.log("entreee", A[i])
+                let arregloActualizado = estaOficinaDisponible(oficinasDisponibles, A[i]) ? buscarOficinaDisponible(oficinasDisponibles, A[i]) : false;
+
+                if (!arregloActualizado) {
+                    oficinasDisponibles[i] = (T - A[i]);
+                    oficinasMinimas++;
+                }
+
+                console.log("arregloActualizado: ", arregloActualizado);
+
             }
-
-            console.log("arregloActualizado: ", arregloActualizado);
-
-        }
 
     }
     console.log("oficinasDisponibles: ", oficinasDisponibles);
@@ -79,7 +81,6 @@ const colaDeAtencion = (N, T, A = []) => {
 }
 
 const tiempoMaxAtencion = 8;
- const tiempoAtencion = [0, 7, 0, 6, 4]; // [1,2,4] [2,4] 
-/* const tiempoAtencion = [0, 10, 1, 1]; // [1,2,4] [2,4] */
+
 const numeroOficinas = colaDeAtencion(tiempoAtencion.length, tiempoMaxAtencion, tiempoAtencion);
 console.log("numeroOficinas: ", numeroOficinas);

@@ -19,13 +19,13 @@ function punto_1(t,a) {
            band = true
   
           //verifica el caso de los 0 a la Derecha
-          if (a[i + 1] === 0) {   
+          if (a[i + 1] === 0 || a[i + 1] > t) {   
              band = false
              oficinas_ocupadas[i+1] = true  
             break
            }
         
-        if (!a[i + 1]) { break }//evita haga cosas raras
+        if (!a[i + 1]) { if (a[i] > t) { band =  false } break }//evita haga cosas raras
        
         //caso del 0 a la Izquierdad
         if ( (a[j] > t || a[j] === 0 ) && !oficinas_ocupadas[j] ) {
@@ -63,5 +63,5 @@ function punto_1(t,a) {
     return numero_oficionas
     
   }
-
-console.log(punto_1(8, [0,10,1,1]) , 'el mio');
+ 
+console.log(punto_1(8,[8,9] ) , 'el mio');
