@@ -26,9 +26,9 @@ function punto_1(t,a) {
            }
         
         if (!a[i + 1]) { break }//evita haga cosas raras
-  
+       
         //caso del 0 a la Izquierdad
-        if (a[j] > t && !oficinas_ocupadas[j]) {
+        if ( (a[j] > t || a[j] === 0 ) && !oficinas_ocupadas[j] ) {
            band = false
            oficinas_ocupadas[j] = true 
            break
@@ -63,3 +63,5 @@ function punto_1(t,a) {
     return numero_oficionas
     
   }
+
+console.log(punto_1(8, [0,10,1,1]) , 'el mio');
