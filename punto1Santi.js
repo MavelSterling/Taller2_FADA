@@ -1,9 +1,9 @@
-const buscarOficinaDisponible = (arreglo = [], tiempo) => {
+const buscarOficinaDisponible = (arreglo = [], tiempo, T) => {
 
     for (let i = 0; i < arreglo.length; i++) {
         if (tiempo == 0) {
             console.log("cerooo", arreglo)
-            return arreglo
+            return buscarOficinaDisponible(arreglo, T, 0)
         } else if (arreglo[i] == tiempo) {
             console.log("arreglo[i] == tiempo", arreglo)
             arreglo[i] = 0;
@@ -28,11 +28,12 @@ const buscarOficinaDisponible = (arreglo = [], tiempo) => {
     return arreglo;
 }
 
-const estaOficinaDisponible = (arreglo = [], tiempo) => {
+const estaOficinaDisponible = (arreglo = [], tiempo, T) => {
 
     for (let i = 0; i < arreglo.length; i++) {
         if (tiempo == 0) {
-            return true;
+            console.log("cerooo", arreglo)
+            return estaOficinaDisponible(arreglo, T, 0)
         } else if (arreglo[i] == tiempo) {
             return true
         } else if (arreglo[i] > tiempo) {
@@ -48,13 +49,21 @@ const colaDeAtencion = (N, T, A = []) => {
     let oficinasDisponibles = [];
 
     for (let i = 0; i < N; i++) {
+        console.log(i)
         if (A[i] == 0) {
-            oficinasDisponibles[i] = T;
-            oficinasMinimas++;
+            let arregloActualizado = estaOficinaDisponible(oficinasDisponibles, A[i], T) ? buscarOficinaDisponible(oficinasDisponibles, A[i], T) : false;
+            console.log("aaa: ", arregloActualizado)
+            if (!arregloActualizado) {
+                oficinasDisponibles[i] = (T - A[i]);
+                if (!(T - A[i] === 0)) {
+                    oficinasMinimas++;
+                }
+            }
+
         } else
 
-            if ((A[i] + A[i + 1]) < T && (A[i] && A[i + 1] != 0) && estaOficinaDisponible(oficinasDisponibles, A[i] + A[i + 1])) {
-                oficinasDisponibles = buscarOficinaDisponible(oficinasDisponibles, (A[i] + A[i + 1]));
+            if ((A[i] + A[i + 1]) < T && (A[i] && A[i + 1] != 0) && estaOficinaDisponible(oficinasDisponibles, A[i] + A[i + 1], T)) {
+                oficinasDisponibles = buscarOficinaDisponible(oficinasDisponibles, (A[i] + A[i + 1], T));
                 console.log("A[i]", A[i])
                 console.log("T - (A[i] + A[i + 1])", T - (A[i] + A[i + 1]))
                 oficinasDisponibles.push(T - (A[i] + A[i + 1]));
@@ -63,10 +72,11 @@ const colaDeAtencion = (N, T, A = []) => {
                 oficinasMinimas++;
             } else if (A[i] <= T) {
                 console.log("entreee", A[i])
-                let arregloActualizado = estaOficinaDisponible(oficinasDisponibles, A[i]) ? buscarOficinaDisponible(oficinasDisponibles, A[i]) : false;
+                let arregloActualizado = estaOficinaDisponible(oficinasDisponibles, A[i], T) ? buscarOficinaDisponible(oficinasDisponibles, A[i], T) : false;
+                console.log("arregloActualizado antes: ", arregloActualizado);
 
                 if (!arregloActualizado) {
-                    oficinasDisponibles[i] = (T - A[i]);
+                    oficinasDisponibles.push(T - A[i]);
                     oficinasMinimas++;
                 }
 
@@ -81,6 +91,6 @@ const colaDeAtencion = (N, T, A = []) => {
 }
 
 const tiempoMaxAtencion = 8;
-
+const tiempoAtencion = [0, 0, 0, 0, 0]; // [7,0]
 const numeroOficinas = colaDeAtencion(tiempoAtencion.length, tiempoMaxAtencion, tiempoAtencion);
 console.log("numeroOficinas: ", numeroOficinas);
