@@ -56,7 +56,7 @@ const colaDeAtencion = (N, T, A = []) => {
 
         } else
 
-            if ((A[i] + A[i + 1]) < T && (A[i] && A[i + 1] != 0) && estaOficinaDisponible(oficinasDisponibles, A[i] + A[i + 1])) {
+            if ((A[i] + A[i + 1]) < T && estaOficinaDisponible(oficinasDisponibles, A[i] + A[i + 1])) {
                 oficinasDisponibles = buscarOficinaDisponible(oficinasDisponibles, (A[i] + A[i + 1]));
                 console.log("A[i]", A[i])
                 console.log("T - (A[i] + A[i + 1])", T - (A[i] + A[i + 1]))
