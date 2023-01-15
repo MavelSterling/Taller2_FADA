@@ -19,7 +19,7 @@ class Arbol {
     // encontrar letra
     encontrarLetra(palabra) {
         let arbolActual = this.arbolPalabras;
-        console.log("arbol.arbolPalabras: ", JSON.stringify(this.arbolPalabras))
+        // console.log("arbol.arbolPalabras: ", JSON.stringify(this.arbolPalabras))
 
         let prefix = "";
         for (let i = 0; i < palabra.length; i++) {
@@ -32,7 +32,7 @@ class Arbol {
                 arbolActual = arbolActual[letra];
             } else {
 
-                return null;
+                return prefix;
             }
         }
         return arbolActual.esElFinalDeLaPalabra ? prefix : null;
