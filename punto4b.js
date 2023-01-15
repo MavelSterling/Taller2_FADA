@@ -4,7 +4,7 @@ class Arbol {
         this.arbolPalabras = {};
         this.esElFinalDeLaPalabra = false
     }
-    // Insertar palabra en el trie
+    // Insertar palabra en el arbol
     insertar(palabra) {
         let arbolActual = this.arbolPalabras;
         for (let i = 0; i < palabra.length; i++) {
@@ -16,7 +16,27 @@ class Arbol {
         }
         arbolActual.esElFinalDeLaPalabra = true;
     }
+    // encontrar letra
+    encontrarLetra(palabra) {
+        let arbolActual = this.arbolPalabras;
+        console.log("arbol.arbolPalabras: ", JSON.stringify(this.arbolPalabras))
 
+        let prefix = "";
+        for (let i = 0; i < palabra.length; i++) {
+            let letra = palabra[i];
+            if (arbolActual.esElFinalDeLaPalabra) {
+                return prefix;
+            }
+            if (arbolActual[letra]) {
+                prefix += letra;
+                arbolActual = arbolActual[letra];
+            } else {
+
+                return null;
+            }
+        }
+        return arbolActual.esElFinalDeLaPalabra ? prefix : null;
+    }
 }
 
 
@@ -28,12 +48,16 @@ const autocompletado = (N, OPS = []) => {
     for (let i = 0; i < N; i++) {
         if (OPS[i][0] == 1) {
             arbol.insertar(OPS[i][1])
-        } else {
-
         }
     }
 
-    console.log("arbol.arbolPalabras: ", JSON.stringify(arbol.arbolPalabras))
+    // console.log("arbol.arbolPalabras: ", JSON.stringify(arbol.arbolPalabras))
+
+    for (let i = 0; i < N; i++) {
+        if (OPS[i][0] == 2) {
+            console.log(arbol.encontrarLetra(OPS[i][1]))
+        }
+    }
 
 }
 
