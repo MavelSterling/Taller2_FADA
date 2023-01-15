@@ -54,8 +54,8 @@ function maximoMesas(n, T) {
   let llegada = countingSort(T.map(t => t[0]), 0, 100000);
   let salida = countingSort(T.map(t => t[1]), 0, 100000);
 
-  /*   console.log("llegada", llegada)
-    console.log("salida", salida) */
+  console.log("llegada", llegada)
+  console.log("salida", salida)
 
   let maximoMesas = 0;
   let numeroMesas = 0;
@@ -78,8 +78,11 @@ function maximoMesas(n, T) {
 }
 
 // Ejemplos de prueba
-console.log(maximoMesas(3, [[5, 8], [2, 4], [3, 9]])); // Debería imprimir 2
-console.log(maximoMesas(4, [[1, 3], [2, 4], [2, 5], [6, 8]])); // Debería imprimir 3
+// console.log(maximoMesas(3, [[5, 8], [2, 4], [3, 9]])); // Debería imprimir 2
+// console.log(maximoMesas(4, [[1, 10], [1, 3], [2, 5], [4, 7]])); // Debería imprimir 3
+// console.log(maximoMesas(4, [[1, 6], [1, 3], [2, 5], [4, 7]])); // Debería imprimir 3
+console.log(maximoMesas(4, [[1, 10], [1, 7], [2, 5], [4, 7]])); // Debería imprimir 3
+/* console.log(maximoMesas(4, [[1, 3], [2, 4], [2, 5], [6, 8]])); // Debería imprimir 3
 console.log(maximoMesas(1, [[1, 3]])); // Debería imprimir 1
 console.log(maximoMesas(2, [[1, 3], [2, 5]])); // Debería imprimir 2
 console.log(maximoMesas(5, [[1, 3], [2, 5], [2, 7], [5, 8], [7, 10]])); // Debería imprimir 3
@@ -91,4 +94,4 @@ console.log(maximoMesas(1, [[10, 10]])); // Debería imprimir 0
 console.log(maximoMesas(1, [[2, 2]])) // Debería imprimir 0 
 console.log(maximoMesas(0, [[]]));// Debería imprimir 0
 console.log(maximoMesas(4, [[11, 11], [12, 12], [9, 9], [13, 13]]))//Debería imprimir 0
-console.log(maximoMesas(3, [[10, 11], [10, 12], [10, 13]])) // Debería imprimir 3 
+console.log(maximoMesas(3, [[10, 11], [10, 12], [10, 13]])) // Debería imprimir 3  */

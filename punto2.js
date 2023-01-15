@@ -55,7 +55,7 @@ const arrendarApto = (m, n, k, M = [], N = []) => {
     return personasQuePuedenArrendar;
 }
 
-let tolerancia = 5;
+let tolerancia = 15;
 let capacidadPersonas = [30, 60, 75];
 let costoApartamentos = [60, 45, 80, 60];
 
