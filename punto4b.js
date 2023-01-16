@@ -65,6 +65,6 @@ const autocompletado = (N, OPS = []) => {
 
 }
 
-let OPS = [[1, "hola"], [1, "cabeza"], [1, "arroz"], [2, "aro"], [2, "ar"]]
+let OPS = [[1, "hola"], [1, "cabeza"], [1, "arroz"], [2, "aro"], [2, "pez"]]
 const palabrasAutocompletadas = autocompletado(OPS.length, OPS)
 console.log("palabrasAutocompletadas: ", palabrasAutocompletadas)
