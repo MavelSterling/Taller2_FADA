@@ -1,47 +1,78 @@
-class Trie {
+
+class Arbol {
     constructor() {
-        this.root = {};
-        this.isEndOfWord = false
+        this.arbolPalabras = {};
+        this.esElFinalDeLaPalabra = false
     }
-    // Insertar palabra en el trie
-    insert(word) {
-        let current = this.root;
-        for (let i = 0; i < word.length; i++) {
-            let char = word[i];
-            if (!current[char]) {
-                current[char] = {};
+    // Insertar palabra en el arbol
+    insertar(palabra) {
+        let arbolActual = this.arbolPalabras;
+        for (let i = 0; i < palabra.length; i++) {
+            let letra = palabra[i];
+            if (!arbolActual[letra]) {
+                arbolActual[letra] = {};
             }
-            current = current[char];
+            arbolActual = arbolActual[letra];
         }
-        current.isEndOfWord = true;
+        arbolActual.esElFinalDeLaPalabra = true;
     }
-    // encontrar prefijo
-    findPrefix(word) {
-        let current = this.root;
+    // encontrar letra
+    encontrarLetra(word) {
+        let current = this.arbolPalabras;
+        // console.log("arbol.arbolPalabras: ", JSON.stringify(this.arbolPalabras))
+
         let prefix = "";
+        /*  for (let i = 0; i < palabra.length; i++) {
+             let letra = palabra[i];
+             if (arbolActual.esElFinalDeLaPalabra) {
+                 return prefix;
+             }
+             if (arbolActual[letra]) {
+                 prefix += letra;
+                 arbolActual = arbolActual[letra];
+             } else {
+ 
+                 return prefix;
+             }
+         }
+         return arbolActual.esElFinalDeLaPalabra ? prefix : null; */
         for (let i = 0; i < word.length; i++) {
             let char = word[i];
-            if (current.isEndOfWord) {
-                return prefix;
-            }
             if (current[char]) {
                 prefix += char;
                 current = current[char];
-            } else {
-                return null;
-            }
+                if (current.esElFinalDeLaPalabra && prefix.length <= word.length / 2) {
+                    return current.word;
+                }
+            } /* else {
+                return prefix;
+            } */
         }
-        return current.isEndOfWord ? prefix : null;
+        return current.esElFinalDeLaPalabra ? current.word : null;
     }
 }
 
-//ejemplo de uso
-const trie = new Trie();
-trie.insert("hola");
-trie.insert("cabeza");
-trie.insert("arroz");
 
-console.log("trie.root: ", JSON.stringify(trie.root))
 
-console.log(trie.findPrefix("aro")); // arroz
-console.log(trie.findPrefix("pez")); // null
+const autocompletado = (N, OPS = []) => {
+
+    const arbol = new Arbol();
+
+    for (let i = 0; i < N; i++) {
+        if (OPS[i][0] == 1) {
+            arbol.insertar(OPS[i][1])
+        }
+    }
+
+    // console.log("arbol.arbolPalabras: ", JSON.stringify(arbol.arbolPalabras))
+
+    for (let i = 0; i < N; i++) {
+        if (OPS[i][0] == 2) {
+            console.log(arbol.encontrarLetra(OPS[i][1]))
+        }
+    }
+
+}
+
+let OPS = [[1, "hola"], [1, "cabeza"], [1, "arroz"], [2, "aro"], [2, "pez"]]
+const palabraAutocompletada = autocompletado(OPS.length, OPS)
