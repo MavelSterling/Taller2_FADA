@@ -32,7 +32,9 @@ class Arbol {
                 break;
             }
         }
-        prefijo !== "" && prefijo.length >= Math.ceil(palabra.length/2) ? this.autocompletarPalabra(arbolActual, prefijo) : this.arregloFinal.push("")
+        prefijo !== "" && prefijo.length >= Math.ceil(palabra.length / 2)
+            ? this.autocompletarPalabra(arbolActual, prefijo)
+            : this.arregloFinal.push("")
         return this.arregloFinal;
     }
 
@@ -49,26 +51,31 @@ class Arbol {
     }
 }
 
+const menorLexicograticamente = (arr) => {
+    return [arr.reduce((a, b) => a < b ? a : b)];
+}
 
 const autocompletado = (N, OPS = []) => {
 
     const arbol = new Arbol();
     let palabraAutocompletada = []
+    let palabraMenor = ""
     for (let i = 0; i < N; i++) {
         if (OPS[i][0] == 1) {
             arbol.insertar(OPS[i][1])
         } else if (OPS[i][0] == 2) {
-            palabraAutocompletada.push(arbol.encontrarPrefijo(OPS[i][1]).toString())
+            palabraMenor = menorLexicograticamente((arbol.encontrarPrefijo(OPS[i][1])))
+            palabraAutocompletada.push(palabraMenor.toString())
         }
     }
     return palabraAutocompletada
-
 }
 
-let OPS = [[1, "calabaza"], [1, "cabeza"], [1, "carro"], [2, "ca"]]
+
+// let OPS = [[1, "calabaza"], [1, "cabeza"], [1, "carro"], [2, "ca"]] // ["arroz", ""]
+// let OPS = [[1, "hola"], [1, "cabeza"],[1, "caa"], [1, "arroz"], [2, "aro"], [2, "ca"]] // [ 'arroz', 'caa' ]
+let OPS = [[1, "hola"], [1, "cabeza"], [1, "caa"], [1, "arroz"], [2, "aro"], [2, "ke"], [2, "hol"]] // [ 'arroz', '', 'hola' ]
+
 const palabrasAutocompletadas = autocompletado(OPS.length, OPS)
 console.log("palabrasAutocompletadas: ", palabrasAutocompletadas)
 
-console.log("calabra" < "cabeza") // a<b returns a, else return b
-
-//n predicciones, n palabras en el diccionario, separar n palabras y hacer n comparaciones
